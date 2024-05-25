@@ -45,11 +45,12 @@ export default function TextBox({ heading = "Title" }) {
     const [modeBtnText, setModeBtnText] = useState('Dark Mode');
 
 
-    const convertMode = (myStyle) => {
+    const convertMode = () => {
         if (myStyle.color === 'black') {
             setMyStyle({
                 color: 'white',
-                backgroundColor: 'black'
+                backgroundColor: 'black',
+                border: '1px white'
             });
             setModeBtnText('Light Mode');
         } else {
@@ -60,17 +61,23 @@ export default function TextBox({ heading = "Title" }) {
         }
     };
 
+    const textCopy = () => {
+        let text = document.getElementById('MyBox')
+        text.select();
+        navigator.clipboard.writeText(text.value);
+    }
 
     return (
         <>
             <div className="form-group container">
                 <h3>{heading}</h3>
                 {/* <label for="exampleFormControlTextarea1">Example textarea</label> */}
-                <textarea className="form-control" value={text} onChange={handleOnChange} id="exampleFormControlTextarea1" rows="3"></textarea>
+                <textarea className="form-control" value={text} onChange={handleOnChange} id="MyBox" rows="3"></textarea>
                 <button className="btn btn-primary  my-2 mx-1" onClick={handleUpClicke} >Upper Case</button>
                 <button className="btn btn-primary  my-2 mx-1" onClick={handleLoClicke} >Lower Case</button>
                 <button className="btn btn-primary  my-2 mx-1" onClick={handleClear} >Clear</button>
                 <button type="submit" onClick={speak} className="btn btn-primary mx-1 my-2">Speak</button>
+                <button type="submit" onClick={textCopy} className="btn btn-primary mx-1 my-2">Copy Text</button>
             </div>
             <div className="container my-2">
                 <h3>Text Analysis</h3>
